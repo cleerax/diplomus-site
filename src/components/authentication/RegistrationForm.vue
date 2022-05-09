@@ -47,30 +47,60 @@
         <label for="floatingPasswordRepeat">Повторите пароль</label>
       </div>
 
-      <button class="w-100 btn btn-lg btn-primary" type="submit">
+      <button class="w-100 btn btn-lg btn-primary regbtn" type="submit">
         Зарегистрироваться
       </button>
     </form>
+
+    <div
+      class="alert alert-danger alert-dismissible fade show"
+      role="alert"
+      v-if="this.isError"
+    >
+      {{ this.errorMessage }}
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="alert"
+        aria-label="Close"
+        @click="
+          this.isError = false;
+          this.errorMessage = '';
+        "
+      ></button>
+    </div>
   </div>
 </template>
 
 <script>
-// import { authService } from "@/_services/authentication";
+import { authService } from "@/_services/authentication";
 
 export default {
   name: "RegistrationForm",
+  data() {
+    return {
+      isError: false,
+      errorMessage: "",
+    };
+  },
   methods: {
-    register(username, password, email) {
-      alert(username + password + email);
-      // var response = await authService.register(username, password, email);
+    async register(username, password, email) {
+      try {
+        var response = await authService.register(username, password, email);
 
-      // if (response == "error") {
-      //   this.errorMessage = "Введенный логин занят";
-      //   return;
-      // }
+        if (!response.ok) {
+          console.log(response);
+          return;
+        }
 
-      // await authService.login(username, password);
-      // this.$router.push("/");
+        await authService.login(username, password);
+        this.$router.push("/");
+      } catch (ex) {
+        if (ex instanceof TypeError) {
+          this.isError = true;
+          this.errorMessage = ex.message;
+        }
+      }
     },
     validatePassword() {
       let password = document.getElementById("password");
@@ -109,6 +139,6 @@ input[type="email"] {
 }
 
 .regbtn {
-  margin-top: 10px;
+  margin-bottom: 10px;
 }
 </style>
