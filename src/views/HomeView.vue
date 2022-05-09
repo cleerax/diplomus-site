@@ -8,11 +8,16 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from "@/components/HelloWorld.vue";
+import { authService } from "../_services/authentication.js";
 
 export default {
   name: "HomeView",
   components: {
     HelloWorld,
+  },
+
+  created: function () {
+    if (!authService.isAuthenticated()) this.$router.push("/auth");
   },
 };
 </script>
