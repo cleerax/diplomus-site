@@ -12,7 +12,7 @@ function getUserInfo() {
   return {
     userId: cookieService.getCookie("userId"),
     userName: cookieService.getCookie("user-name"),
-    accessRights: cookieService.getCookie("access-rights"),
+    accessRights: cookieService.getCookie("roles").split(","),
     email: cookieService.getCookie("email"),
   };
 }

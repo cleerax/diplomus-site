@@ -57,8 +57,9 @@
 
 <script>
 import { authService } from "@/_services/authentication";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "AuthorizationForm",
   data() {
     return {
@@ -90,7 +91,7 @@ export default {
       }
     },
   },
-};
+});
 </script>
 
 <style scoped>

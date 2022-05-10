@@ -27,6 +27,11 @@ const routes = [
       hideNavbar: true,
     },
   },
+  {
+    path: "/contractor/:id",
+    name: "contractor",
+    component: () => import("../views/ContractorView.vue"),
+  },
 ];
 
 const router = createRouter({

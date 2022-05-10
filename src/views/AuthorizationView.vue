@@ -7,13 +7,14 @@
 <script>
 // @ is an alias to /src
 import AuthorizationForm from "@/components/authentication/AuthorizationForm.vue";
+import { defineComponent } from "vue";
 
-export default {
+export default defineComponent({
   name: "AuthorizationView",
   components: {
     AuthorizationForm,
   },
-};
+});
 </script>
 
 <style scoped>

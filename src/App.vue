@@ -1,17 +1,22 @@
 <template>
-  <BaseNavbar v-if="!$route.meta.hideNavbar"/>
+  <BaseNavbar v-if="!$route.meta.hideNavbar" />
   <router-view />
 </template>
 
 <script>
 import BaseNavbar from "@/components/BaseNavbar.vue";
+import { defineComponent } from "vue";
+import { authService } from "@/_services/authentication.js";
 
-export default {
+export default defineComponent({
   name: "App",
   components: {
     BaseNavbar,
   },
-};
+  created: function () {
+    if (!authService.isAuthenticated()) this.$router.push("/auth");
+  },
+});
 </script>
 
 <style>
