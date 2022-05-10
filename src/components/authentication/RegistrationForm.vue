@@ -89,7 +89,11 @@ export default {
         var response = await authService.register(username, password, email);
 
         if (!response.ok) {
-          console.log(response);
+          let errorMessage = response.statusText;
+          if (response.status == 400)
+            errorMessage = "Выбранное имя пользователя уже занято";
+          this.isError = true;
+          this.errorMessage = errorMessage;
           return;
         }
 

@@ -1,6 +1,18 @@
 <template>
+  <BaseNavbar v-if="!$route.meta.hideNavbar"/>
   <router-view />
 </template>
+
+<script>
+import BaseNavbar from "@/components/BaseNavbar.vue";
+
+export default {
+  name: "App",
+  components: {
+    BaseNavbar,
+  },
+};
+</script>
 
 <style>
 #app {

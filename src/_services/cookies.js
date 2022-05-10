@@ -25,6 +25,12 @@ function setCookie(name, value, options = {}) {
   if (options.expires instanceof Date) {
     options.expires = options.expires.toUTCString();
   }
+  if (options.expires === undefined) {
+    let tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+
+    options.expires = tomorrow.toUTCString();
+  }
 
   let updatedCookie =
     encodeURIComponent(name) + "=" + encodeURIComponent(value);

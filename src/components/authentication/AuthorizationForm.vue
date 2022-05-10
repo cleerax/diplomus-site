@@ -76,13 +76,17 @@ export default {
         if (response == null) {
           this.isError = true;
           this.errorMessage = "Логин или пароль введены неверно";
+          return;
         }
         this.$router.push("/");
       } catch (ex) {
         if (ex instanceof TypeError) {
           this.isError = true;
           this.errorMessage = ex.message;
+          return;
         }
+
+        throw ex;
       }
     },
   },

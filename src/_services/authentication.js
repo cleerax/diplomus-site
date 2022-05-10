@@ -18,7 +18,10 @@ function getUserInfo() {
 }
 
 function isAuthenticated() {
-  return cookieService.getCookie("userId") !== undefined;
+  return (
+    cookieService.getCookie("userId") !== undefined &&
+    cookieService.getCookie("access-token") !== undefined
+  );
 }
 
 async function login(username, password) {
@@ -29,17 +32,19 @@ async function login(username, password) {
   };
 
   const response = await fetch(
-    "https://localhost:5001/api/users/authenticate",
+    "https://localhost:7050/api/users/login",
     requestOptions
   );
 
-  if (response.ok) {
+  if (response.ok && response.status != 204) {
     let result = await response.json();
 
-    cookieService.setCookie("userId", result.userId);
-    cookieService.setCookie("user-name", result.userName);
-    cookieService.setCookie("access-rights", result.accessRights);
-    cookieService.setCookie("email", result.email);
+    cookieService.setCookie("userId", result.user.userId);
+    cookieService.setCookie("user-name", result.user.userName);
+    cookieService.setCookie("roles", result.user.roles);
+    cookieService.setCookie("email", result.user.email);
+
+    cookieService.setCookie("access-token", result.token);
 
     return result;
   } else return null;
@@ -48,8 +53,9 @@ async function login(username, password) {
 function logout() {
   cookieService.deleteCookie("userId");
   cookieService.deleteCookie("user-name");
-  cookieService.deleteCookie("access-rights");
+  cookieService.deleteCookie("roles");
   cookieService.deleteCookie("email");
+  cookieService.deleteCookie("access-token");
   document.location.reload();
 }
 
@@ -64,11 +70,8 @@ async function register(username, password, email) {
     }),
   };
 
-  const response = await fetch(
-    "https://localhost:5001/api/users/register",
+  return await fetch(
+    "https://localhost:7050/api/users/register",
     requestOptions
   );
-
-  if (response.ok) return null;
-  else return "error";
 }
