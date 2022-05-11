@@ -1,16 +1,27 @@
 <template>
-  <th scope="row" class="text-center">{{ product.id }}</th>
-  <td>
-    <p class="fw-normal mb-1">{{ product.name }}</p>
-    <p class="text-muted mb-0">{{ product.name }}</p>
-  </td>
-  <td>{{ product.status }}</td>
-  <td><router-link :to="'/contractor/' + product.contractor_id">{{ product.contractor_name }}</router-link></td>
-  <td>
-    <button type="button" class="btn btn-sm btn-light" style="border-radius: 20px;">
-      Заказать
-    </button>
-  </td>
+  <tr :rowspan="rowspan">
+    <th scope="row" class="text-center">{{ product.id }}</th>
+    <td>
+      <p class="fw-normal mb-1">{{ product.name }}</p>
+      <p class="text-muted mb-0">{{ product.name }}</p>
+    </td>
+    <td>{{ product.status }}</td>
+    <td>
+      <tr v-for="contractor in product.contractors" :key="contractor.id">
+        <td><router-link class="link-secondary" :to="'/contractor/' + contractor.id">{{ contractor.name }}</router-link></td>
+      </tr>
+    </td>
+    <td>
+      <tr v-for="contractor in product.contractors" :key="contractor.id">
+        <td>{{ contractor.price }}</td>
+      </tr>
+    </td>
+    <td>
+      <button type="button" class="btn btn-sm btn-light" style="border-radius: 20px;">
+        Заказать
+      </button>
+    </td>
+  </tr>
 </template>
 
 <script>
@@ -23,9 +34,19 @@ export default defineComponent({
       id: Number,
       name: String,
       status: String,
-      contractor_id: Number,
-      contractor_name: String,
+      contractors: [
+        {
+          id: Number,
+          name: String,
+          price: Number,
+        },
+      ],
     },
+  },
+  data: function () {
+    return {
+      rowspan: this.product.contractors.length,
+    };
   },
 });
 </script>

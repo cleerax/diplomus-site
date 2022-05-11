@@ -6,6 +6,7 @@ const routes = [
     path: "/",
     name: "home",
     component: HomeView,
+    props: (route) => ({ page: route.query.page }),
   },
   {
     path: "/auth",
