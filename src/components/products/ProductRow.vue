@@ -3,7 +3,7 @@
     <th scope="row" class="text-center">{{ product.id }}</th>
     <td>
       <p class="fw-normal mb-1">{{ product.name }}</p>
-      <p class="text-muted mb-0">{{ product.name }}</p>
+      <!--<p class="text-muted mb-0">{{ product.name }}</p>-->
     </td>
     <td>{{ product.status }}</td>
     <td>
@@ -16,7 +16,7 @@
         <td>{{ contractor.price }}</td>
       </tr>
     </td>
-    <td>
+    <td class="text-center">
       <button type="button" class="btn btn-sm btn-light" style="border-radius: 20px;">
         Заказать
       </button>

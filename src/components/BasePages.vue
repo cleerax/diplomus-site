@@ -1,5 +1,5 @@
 <template>
-  <nav aria-label="Page navigation example">
+  <nav class="mt-4">
     <ul class="pagination justify-content-center">
       <li class="page-item" :class="{ disabled: this.pageNumber == 1 ? true : false }">
         <button class="page-link" aria-disabled="true" @click="$router.push(this.getLink(this.pageNumber - 1))">Назад</button>
@@ -9,7 +9,7 @@
           <router-link :to="getLink(getCorrectPage(i))" class="page-link">{{ getCorrectPage(i) }}</router-link>
         </li>
       </template>
-      <li class="page-item" :class="{ disabled: this.pageNumber == this.pageCount ? true : false }">
+      <li class="page-item" :class="{ disabled: this.pageNumber == this.pageCount || this.pageCount == 0 ? true : false }">
         <button class="page-link" aria-disabled="true" @click="$router.push(this.getLink(Number(this.pageNumber) + 1))">Вперед</button>
       </li>
     </ul>
@@ -24,10 +24,11 @@ export default defineComponent({
   props: {
     pageCount: Number,
     pageNumber: Number,
+    linkPrefix: String,
   },
   methods: {
     getLink(pageNumber) {
-      return pageNumber === 1 ? "/" : "/?page=" + pageNumber;
+      return pageNumber === 1 ? this.$route.path : this.$route.path + "?page=" + pageNumber;
     },
     getCorrectPage(i) {
       if (this.pageNumber <= 3) return i;

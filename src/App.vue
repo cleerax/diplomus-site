@@ -1,6 +1,12 @@
 <template>
   <BaseNavbar v-if="!$route.meta.hideNavbar" />
   <router-view />
+  <div class="container" v-if="!$route.meta.hideNavbar">
+    <footer class="py-3">
+      <div class="justify-content-center border-bottom mb-3" />
+      <p class="text-center text-muted">2022 Андрей Минаев</p>
+    </footer>
+  </div>
 </template>
 
 <script>

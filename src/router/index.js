@@ -32,6 +32,18 @@ const routes = [
     path: "/contractor/:id",
     name: "contractor",
     component: () => import("../views/ContractorView.vue"),
+    props: (route) => ({ page: route.query.page }),
+  },
+  {
+    path: "/contractors",
+    name: "contractors",
+    component: () => import("../views/ContractorsView.vue"),
+    props: (route) => ({ page: route.query.page }),
+  },
+  {
+    path: "/about",
+    name: "about",
+    component: () => import("../views/AboutView.vue"),
   },
 ];
 
