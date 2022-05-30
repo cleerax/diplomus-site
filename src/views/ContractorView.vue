@@ -88,9 +88,12 @@
           <tr>
             <th style="width: 8%" class="text-center">ID товара</th>
             <th>Наименование</th>
+            <th>Категория</th>
             <th>Статус</th>
             <th>Цена, ₽</th>
-            <th style="width: 15%" class="text-center">Действия</th>
+            <th>Цена доставки, ₽</th>
+            <th>РРЦ, ₽</th>
+            <th>Наличие на складе</th>
           </tr>
         </thead>
         <tbody>

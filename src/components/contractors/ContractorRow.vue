@@ -1,7 +1,10 @@
 <template>
-  <tr role="button" v-on:click="$router.push('/contractor/' + contractor.id)">
+  <tr>
+    <td class="text-center">
+      <input class="form-check-input" type="checkbox" @change="changeSelected" v-model="isSelected"/>
+    </td>
     <th scope="row" class="text-center">{{ contractor.id }}</th>
-    <td>
+    <td @click="$router.push('/contractor/' + contractor.id)" role="button">
       <div class="d-flex align-items-center">
         <img
           :src="contractor.imageLink"
@@ -35,6 +38,16 @@ export default defineComponent({
       address: String,
       imageLink: String,
       activeTime: String,
+    },
+  },
+  data: function() {
+    return {
+      isSelected: false,
+    };
+  },
+  methods: {
+    changeSelected() {
+      this.isSelected ? this.$emit("addSelected", this.contractor.id) : this.$emit("removeSelected", this.contractor.id);
     },
   },
 });

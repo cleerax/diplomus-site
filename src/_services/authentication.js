@@ -6,6 +6,7 @@ export const authService = {
   logout,
   register,
   getUserInfo,
+  isAdmin,
 };
 
 function getUserInfo() {
@@ -22,6 +23,11 @@ function isAuthenticated() {
     cookieService.getCookie("userId") !== undefined &&
     cookieService.getCookie("access-token") !== undefined
   );
+}
+
+function isAdmin() {
+  var roles = cookieService.getCookie("roles").split(",");
+  return roles.includes("Admin");
 }
 
 async function login(username, password) {
